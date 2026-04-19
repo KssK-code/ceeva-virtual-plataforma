@@ -1,7 +1,7 @@
 export const CONFIG = {
   nombre: 'NOMBRE_CLIENTE',
   nombreCompleto: 'NOMBRE COMPLETO DEL CLIENTE',
-  logo: '/logo-cliente.png',
+  logo: '/logo-ceeva.png',
   logoOscuro: '/logo-cliente-dark.png',
 
   whatsapp: '0000000000',
