@@ -64,6 +64,21 @@ export const CONFIG = {
     ],
     convenios: [],
     respaldoBadges: [],
+
+    hero_titulo: 'Estudia desde casa, certifícate con la SEP',
+    hero_highlight: 'certifícate',
+    hero_subtitulo: 'Sin ir a la escuela. Certificado oficial reconocido por la SEP.',
+    hero_badges: [
+      { emoji: '🏛️', texto: 'Incorporado a la SEP' },
+      { emoji: '💻', texto: '100% en línea' },
+      { emoji: '📜', texto: 'Certificación oficial' },
+    ],
+    años_experiencia: '5',
+    respaldo_titulo: 'Respaldados por instituciones educativas de confianza',
+    respaldo_badges: [] as string[],
+    certificacion_secundaria: 4250,
+    certificacion_preparatoria: 4750,
+    cct: '',
   },
 
   cct: '',
