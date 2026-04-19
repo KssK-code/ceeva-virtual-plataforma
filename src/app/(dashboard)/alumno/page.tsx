@@ -168,8 +168,8 @@ export default function AlumnoDashboard() {
     const onLogrosUpdate = () => {
       void fetchLogrosYRacha()
     }
-    window.addEventListener('ivs-logros-update', onLogrosUpdate)
-    return () => window.removeEventListener('ivs-logros-update', onLogrosUpdate)
+    window.addEventListener('logros-update', onLogrosUpdate)
+    return () => window.removeEventListener('logros-update', onLogrosUpdate)
   }, [perfil])
 
   // ── Loading skeletons ──────────────────────────────────────────────────────

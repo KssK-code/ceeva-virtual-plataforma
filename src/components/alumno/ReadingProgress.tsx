@@ -120,7 +120,7 @@ export default function ReadingProgress({
         return
       }
       if (typeof window !== 'undefined') {
-        window.dispatchEvent(new Event('ivs-logros-update'))
+        window.dispatchEvent(new Event('logros-update'))
       }
 
       // Calcular tiempo transcurrido desde que se montó el componente

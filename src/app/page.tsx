@@ -84,7 +84,7 @@ export default function LandingPage() {
         <div style={{ position: 'absolute', bottom: -60, left: -60, width: 200, height: 200, borderRadius: '50%', background: 'rgba(201,168,76,0.06)', pointerEvents: 'none' }} />
         <div style={{ maxWidth: 780, margin: '0 auto', position: 'relative' }}>
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
-            <Image src={CONFIG.logo} alt={CONFIG.nombre} width={90} height={90} style={{ objectFit: 'contain', borderRadius: 16, background: 'white', padding: 8 }} />
+            <Image src={CONFIG.logo} alt={CONFIG.nombre} width={130} height={130} style={{ objectFit: 'contain', borderRadius: 16, background: 'white', padding: 12 }} />
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center', marginBottom: 32 }}>
             {['🏛️ Incorporado a la SEP', '💻 100% en línea', '📜 Certificación oficial', '🚫 Sin examen final'].map(b => (

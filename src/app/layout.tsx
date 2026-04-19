@@ -15,7 +15,7 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-const description = "Estudia Secundaria o Preparatoria desde casa. Certificado oficial SEP. Convenio con sindicatos IMSS y Ferrocarrileros. 100% en línea."
+const description = "Estudia Secundaria o Preparatoria desde casa. Certificado oficial SEP. 100% en línea. Sin examen final."
 
 export const viewport: Viewport = {
   themeColor: "#0B0D11",

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { CONFIG } from '@/lib/config'
 
 export async function GET() {
   try {
@@ -82,7 +83,7 @@ export async function GET() {
       nombre:              usuario?.nombre   ?? '',
       apellidos:           usuario?.apellidos ?? '',
       foto_url:            usuario?.foto_url  ?? null,
-      matricula:           alumno.matricula   ?? 'IVS-0000',
+      matricula:           alumno.matricula   ?? `${CONFIG.nombre}-0000`,
       nivel:               alumno.nivel       ?? null,
       modalidad:           alumno.modalidad   ?? '6_meses',
       meses_desbloqueados: mesesDesbloqueados,

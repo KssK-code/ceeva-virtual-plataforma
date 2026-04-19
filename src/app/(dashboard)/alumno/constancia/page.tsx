@@ -2,6 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Loader2, Printer, Download } from 'lucide-react'
+import { CONFIG } from '@/lib/config'
+
+const C = CONFIG.colores
 
 type Estado = 'Acreditada' | 'No acreditada' | 'Pendiente'
 
@@ -70,11 +73,11 @@ export default function ConstanciaPage() {
     ? Math.round((datos.meses_desbloqueados / datos.duracion_meses) * 100)
     : 0
 
-  const disclaimerParts = `Este documento es un comprobante académico interno con folio {folio} generado digitalmente por IVS Virtual. Para verificar su autenticidad, contacte a administración.`.split('{folio}')
+  const disclaimerParts = `Este documento es un comprobante académico interno con folio {folio} generado digitalmente por ${CONFIG.nombre}. Para verificar su autenticidad, contacte a administración.`.split('{folio}')
 
   if (loading) return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 400 }}>
-      <Loader2 className="w-6 h-6 animate-spin" style={{ color: '#3AAFA9' }} />
+      <Loader2 className="w-6 h-6 animate-spin" style={{ color: C.primario }} />
     </div>
   )
 
@@ -111,7 +114,7 @@ export default function ConstanciaPage() {
               padding: '10px 22px', borderRadius: 6, fontSize: 13, fontWeight: 600,
               cursor: 'pointer', fontFamily: '"DM Sans", sans-serif',
               display: 'flex', alignItems: 'center', gap: 7,
-              background: '#2B7A77', color: '#fff', border: 'none',
+              background: C.primario, color: '#fff', border: 'none',
             }}
           >
             <Download className="w-4 h-4" />
@@ -129,7 +132,7 @@ export default function ConstanciaPage() {
           }}
         >
           {/* Barra superior */}
-          <div style={{ height: 5, background: 'linear-gradient(90deg, #1B3A57, #3AAFA9 55%, #4ECDC4)' }} />
+          <div style={{ height: 5, background: `linear-gradient(90deg, ${C.primario}, ${C.secundario} 55%, ${C.acento})` }} />
 
           {/* ── Encabezado ── */}
           <div style={{
@@ -140,16 +143,18 @@ export default function ConstanciaPage() {
             {/* Logo */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-ivs.jpg" alt="IVS" style={{ height: 60, width: 'auto' }} />
+              <img src={CONFIG.logo} alt={CONFIG.nombre} style={{ height: 60, width: 'auto', objectFit: 'contain' }} />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span style={{
-                  fontWeight: 800, fontSize: 18, letterSpacing: '0.08em',
-                  background: 'linear-gradient(135deg, #1B3A57, #3AAFA9, #4ECDC4)',
+                  fontWeight: 800, fontSize: 16, letterSpacing: '0.04em',
+                  background: `linear-gradient(135deg, ${C.primario}, ${C.secundario}, ${C.acento})`,
                   WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text', lineHeight: 1.1,
-                }}>IVS Instituto Virtual Superior</span>
+                  backgroundClip: 'text', lineHeight: 1.2,
+                }}>{CONFIG.nombreCompleto}</span>
                 <span style={{ fontSize: 9, letterSpacing: '0.2em', color: '#64748b', fontWeight: 500, textTransform: 'uppercase', marginTop: 4 }}>
-                  Incorporado a la SEP &nbsp;·&nbsp; CCT: 09GBD0002D
+                  {CONFIG.cct?.trim()
+                    ? <>Incorporado a la SEP &nbsp;·&nbsp; CCT: {CONFIG.cct.trim()}</>
+                    : <>Incorporado a la SEP</>}
                 </span>
                 <span style={{
                   fontSize: 8, letterSpacing: '0.12em', color: '#94a3b8', fontWeight: 400,
@@ -165,7 +170,7 @@ export default function ConstanciaPage() {
               <div style={{ fontSize: 9, letterSpacing: '0.18em', color: '#a0aec0', textTransform: 'uppercase', fontWeight: 600 }}>
                 Folio
               </div>
-              <div style={{ fontSize: 13, color: '#3AAFA9', fontWeight: 700, marginTop: 2 }}>
+              <div style={{ fontSize: 13, color: C.primario, fontWeight: 700, marginTop: 2 }}>
                 {folio}
               </div>
               <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 5 }}>
@@ -191,7 +196,7 @@ export default function ConstanciaPage() {
               }}>
                 <span style={{
                   display: 'inline-block', width: 4, height: 28, flexShrink: 0,
-                  background: 'linear-gradient(180deg, #3AAFA9, #4ECDC4)', borderRadius: 2,
+                  background: `linear-gradient(180deg, ${C.primario}, ${C.secundario})`, borderRadius: 2,
                 }} />
                 Constancia de Estudios
               </div>
@@ -203,12 +208,12 @@ export default function ConstanciaPage() {
                   <img
                     src={datos.avatar_url}
                     alt={[datos.nombre, datos.apellidos].filter(Boolean).join(' ') || datos.nombre_completo}
-                    style={{ width: 90, height: 90, borderRadius: '50%', objectFit: 'cover', border: '2px solid #3AAFA9' }}
+                    style={{ width: 90, height: 90, borderRadius: '50%', objectFit: 'cover', border: `2px solid ${C.primario}` }}
                   />
                 ) : (
                   <div style={{
                     width: 90, height: 90, borderRadius: '50%',
-                    background: '#3AAFA9', color: '#fff',
+                    background: C.primario, color: '#fff',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: 28, fontWeight: 700,
                   }}>
@@ -229,13 +234,13 @@ export default function ConstanciaPage() {
               <strong style={{ color: '#0f172a', fontWeight: 600 }}>{datos.matricula}</strong>,{' '}
               está inscrito en el programa{' '}
               <strong style={{ color: '#0f172a', fontWeight: 600 }}>{datos.plan_nombre}</strong>{' '}
-              de IVS Virtual.
+              {` de ${CONFIG.nombre}.`}
             </p>
 
             {/* Párrafo 2 */}
             <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.9, marginTop: 6 }}>
               Ha completado{' '}
-              <span style={{ color: '#2B7A77', fontWeight: 600 }}>
+              <span style={{ color: C.primario, fontWeight: 600 }}>
                 {datos.meses_desbloqueados} de {datos.duracion_meses} meses del programa
               </span>.
             </p>
@@ -243,12 +248,14 @@ export default function ConstanciaPage() {
             {/* Datos institucionales */}
             <div style={{
               marginTop: 14, padding: '10px 16px', borderRadius: 8,
-              background: '#f0fdf9', border: '1px solid #a7f3d0',
+              background: CONFIG.colores.fondo, border: `1px solid rgba(27, 47, 110, 0.12)`,
               display: 'flex', flexWrap: 'wrap', gap: '6px 24px',
             }}>
               {[
-                { label: 'Institución', value: 'IVS Instituto Virtual Superior' },
-                { label: 'CCT', value: '09GBD0002D' },
+                { label: 'Institución', value: CONFIG.nombreCompleto },
+                ...(CONFIG.cct?.trim()
+                  ? [{ label: 'CCT' as const, value: CONFIG.cct.trim() }]
+                  : []),
                 { label: 'Autoridad educativa', value: 'Incorporado a la SEP' },
                 { label: 'Sistema', value: datos.duracion_meses <= 6 && datos.plan_nombre?.toLowerCase().includes('prepa')
                     ? 'Sistema Nacional de Educación Media Superior'
@@ -263,15 +270,15 @@ export default function ConstanciaPage() {
 
             {/* Barra de progreso */}
             <div style={{ margin: '20px 0 4px' }}>
-              <div style={{ background: '#e6f7f6', borderRadius: 3, height: 5, overflow: 'hidden' }}>
+              <div style={{ background: 'rgba(27, 47, 110, 0.08)', borderRadius: 3, height: 5, overflow: 'hidden' }}>
                 <div style={{
                   height: '100%', width: `${porcentaje}%`,
-                  background: 'linear-gradient(90deg, #2B7A77, #4ECDC4)', borderRadius: 3,
+                  background: `linear-gradient(90deg, ${C.primario}, ${C.secundario})`, borderRadius: 3,
                 }} />
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#94a3b8', marginTop: 6, fontWeight: 500 }}>
                 <span>Avance total</span>
-                <span style={{ color: '#3AAFA9', fontWeight: 700 }}>{porcentaje}%</span>
+                <span style={{ color: C.primario, fontWeight: 700 }}>{porcentaje}%</span>
               </div>
             </div>
 
@@ -301,7 +308,7 @@ export default function ConstanciaPage() {
                       <td style={{ padding: '12px 14px', color: '#64748b', fontSize: 12, borderBottom: '1px solid #f4f6fb' }}>
                         Mes {m.mes_numero}
                       </td>
-                      <td style={{ padding: '12px 14px', fontSize: 12, color: '#3AAFA9', fontWeight: 700, letterSpacing: '0.06em', borderBottom: '1px solid #f4f6fb' }}>
+                      <td style={{ padding: '12px 14px', fontSize: 12, color: C.primario, fontWeight: 700, letterSpacing: '0.06em', borderBottom: '1px solid #f4f6fb' }}>
                         {m.codigo}
                       </td>
                       <td style={{ padding: '12px 14px', color: '#334155', borderBottom: '1px solid #f4f6fb' }}>
@@ -329,8 +336,8 @@ export default function ConstanciaPage() {
             style={{ position: 'absolute', bottom: 50, right: 40, opacity: 0.028, pointerEvents: 'none' }}
             width="220" height="220" viewBox="0 0 100 100"
           >
-            <polygon points="50,4 93,28 93,72 50,96 7,72 7,28" fill="none" stroke="#3AAFA9" strokeWidth="2.5" />
-            <polygon points="50,14 83,33 83,67 50,86 17,67 17,33" fill="none" stroke="#3AAFA9" strokeWidth="1.2" />
+            <polygon points="50,4 93,28 93,72 50,96 7,72 7,28" fill="none" stroke={C.primario} strokeWidth="2.5" />
+            <polygon points="50,14 83,33 83,67 50,86 17,67 17,33" fill="none" stroke={C.primario} strokeWidth="1.2" />
           </svg>
 
           {/* ── Pie del certificado ── */}
@@ -359,13 +366,13 @@ export default function ConstanciaPage() {
                 Dirección Académica
               </div>
               <div style={{ fontSize: 10, color: '#94a3b8', letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: 3 }}>
-                IVS Virtual
+                {CONFIG.nombre}
               </div>
             </div>
           </div>
 
           {/* Barra inferior */}
-          <div style={{ height: 3, background: 'linear-gradient(90deg, #4ECDC4, #3AAFA9 50%, #1B3A57)' }} />
+          <div style={{ height: 3, background: `linear-gradient(90deg, ${C.acento}, ${C.secundario} 50%, ${C.primario})` }} />
         </div>
       </div>
 
