@@ -1,15 +1,15 @@
 export const CONFIG = {
-  nombre: 'CEEVA',
-  nombreCompleto: 'Centro de Estudios en Educación Virtual y Académica',
-  logo: '/logo-ceeva.png',
-  logoOscuro: '/logo-ceeva-dark.png',
+  nombre: 'NOMBRE_CLIENTE',
+  nombreCompleto: 'NOMBRE COMPLETO DEL CLIENTE',
+  logo: '/logo-cliente.png',
+  logoOscuro: '/logo-cliente-dark.png',
 
-  whatsapp: '3318806419',
-  whatsappUrl: 'https://wa.me/523318806419',
-  email: 'ceevavirtual@gmail.com',
+  whatsapp: '0000000000',
+  whatsappUrl: 'https://wa.me/520000000000',
+  email: 'correo@cliente.com',
 
-  dominio: 'ceevavirtual.online',
-  urlBase: 'https://ceevavirtual.online',
+  dominio: 'cliente.online',
+  urlBase: 'https://cliente.online',
 
   colores: {
     primario: '#1B2F6E',
