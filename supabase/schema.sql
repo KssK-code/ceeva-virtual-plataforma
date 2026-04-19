@@ -242,11 +242,11 @@ DECLARE
   nueva    TEXT;
 BEGIN
   SELECT COUNT(*) + 1 INTO contador FROM public.alumnos;
-  nueva := 'IVS-' || anio || '-' || LPAD(contador::TEXT, 4, '0');
+  nueva := 'CEEVA-' || anio || '-' || LPAD(contador::TEXT, 4, '0');
   -- evitar colisiones en caso de concurrencia
   WHILE EXISTS (SELECT 1 FROM public.alumnos WHERE matricula = nueva) LOOP
     contador := contador + 1;
-    nueva := 'IVS-' || anio || '-' || LPAD(contador::TEXT, 4, '0');
+    nueva := 'CEEVA-' || anio || '-' || LPAD(contador::TEXT, 4, '0');
   END LOOP;
   RETURN nueva;
 END;
