@@ -69,9 +69,9 @@ export const CONFIG = {
     hero_highlight: 'certifícate',
     hero_subtitulo: 'Sin ir a la escuela. Certificado oficial reconocido por la SEP.',
     hero_badges: [
-      { emoji: '🏛️', texto: 'Incorporado a la SEP' },
-      { emoji: '💻', texto: '100% en línea' },
-      { emoji: '📜', texto: 'Certificación oficial' },
+      '🏛️ Incorporado a la SEP',
+      '💻 100% en línea',
+      '📜 Certificación oficial',
     ],
     años_experiencia: '5',
     respaldo_titulo: 'Respaldados por instituciones educativas de confianza',
