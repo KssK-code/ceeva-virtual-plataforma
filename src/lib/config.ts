@@ -76,3 +76,7 @@ export const CONFIG = {
 
 export type Nivel = typeof CONFIG.niveles[number]
 export type PreciosNivel = typeof CONFIG.precios.preparatoria
+
+export const ESCUELA_CONFIG = CONFIG
+export const config = CONFIG
+export default CONFIG
