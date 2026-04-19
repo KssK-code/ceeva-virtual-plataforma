@@ -8,6 +8,7 @@ import { useToast, ToastContainer } from '@/components/ui/toast'
 interface Pregunta {
   id: string
   numero: number
+  pregunta: string
   texto: string
   texto_en: string
   tipo: 'OPCION_MULTIPLE' | 'VERDADERO_FALSO'
@@ -309,7 +310,7 @@ export default function EvaluacionPage() {
       {/* Card pregunta */}
       <div className="rounded-2xl p-4 sm:p-6 space-y-4" style={CARD}>
         <p className="text-sm sm:text-base font-semibold leading-relaxed text-gray-900">
-          {pregunta.texto}
+          {pregunta.pregunta}
         </p>
 
         <div className="space-y-2.5">

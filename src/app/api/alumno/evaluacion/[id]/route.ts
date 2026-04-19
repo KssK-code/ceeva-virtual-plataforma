@@ -132,6 +132,7 @@ export async function GET(
       return {
         id:          p.id,
         numero:      p.orden ?? i + 1,
+        pregunta:    p.pregunta,
         texto:       p.pregunta,
         texto_en:    p.pregunta,
         tipo:        'OPCION_MULTIPLE' as const,

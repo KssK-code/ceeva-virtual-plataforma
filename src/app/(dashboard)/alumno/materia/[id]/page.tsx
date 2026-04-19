@@ -278,6 +278,10 @@ export default function MateriaPage() {
                       </p>
                     </div>
                   )
+                  const contenidoSemana = (semana.contenido ?? '')
+                    .replace(/\\r\\n/g, '\n')
+                    .replace(/\\n/g, '\n')
+
                   return (
                     <div className="rounded-xl p-5 space-y-4" style={CARD}>
                       {/* Header de la semana */}
@@ -289,7 +293,7 @@ export default function MateriaPage() {
                           {semana.titulo}
                         </h3>
                         {(() => {
-                          const palabras = semana.contenido?.trim() ? semana.contenido.trim().split(/\s+/).length : 0
+                          const palabras = contenidoSemana.trim() ? contenidoSemana.trim().split(/\s+/).length : 0
                           const minLectura = palabras > 0 ? Math.ceil(palabras / 200) : 0
                           const minVideos = (semana.videos ?? []).reduce((acc, v) => {
                             const match = v.duracion?.match(/(\d+)/)
@@ -308,7 +312,7 @@ export default function MateriaPage() {
                       </div>
 
                       {/* Contenido — markdown (sin sección "Videos recomendados") */}
-                      {semana.contenido && (
+                      {contenidoSemana && (
                         <div className="prose prose-sm max-w-none" style={{
                           color: '#94A3B8',
                           lineHeight: '1.75',
@@ -338,7 +342,7 @@ export default function MateriaPage() {
                               ),
                             }}
                           >
-                            {semana.contenido.replace(/(\n|^)(#{1,3} )?(\*\*)?Videos recomendados(\*\*)?:?[\s\S]*$/i, '')}
+                            {contenidoSemana.replace(/(\n|^)(#{1,3} )?(\*\*)?Videos recomendados(\*\*)?:?[\s\S]*$/i, '')}
                           </ReactMarkdown>
                         </div>
                       )}
