@@ -15,14 +15,14 @@ const WA_URL = `https://wa.me/${CONFIG.whatsapp}`
 const BENEFITS = [
   'Certificado oficial con validez SEP',
   'Estudia desde casa, a tu ritmo',
-  'Convenio IMSS y Ferrocarrileros',
+  'Incorporado a Sistema Educativo Nacional',
   'Secundaria y Preparatoria',
 ]
 
 // ─── Input helpers ─────────────────────────────────────────────────────────────
 function onFocus(e: React.FocusEvent<HTMLInputElement>) {
-  e.currentTarget.style.borderColor = '#3AAFA9'
-  e.currentTarget.style.boxShadow   = '0 0 0 3px rgba(58,175,169,0.12)'
+  e.currentTarget.style.borderColor = '#1B2F6E'
+  e.currentTarget.style.boxShadow   = '0 0 0 3px rgba(27,47,110,0.12)'
 }
 function onBlur(e: React.FocusEvent<HTMLInputElement>) {
   e.currentTarget.style.borderColor = '#E2E8F0'
@@ -47,7 +47,7 @@ function LeftPanel() {
       style={{
         width: '40%',
         minHeight: '100vh',
-        background: 'linear-gradient(160deg, #1B3A57 0%, #2B6B6B 55%, #3AAFA9 100%)',
+        background: 'linear-gradient(160deg, #0d1b4b 0%, #1B2F6E 55%, #2E4BA3 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -91,7 +91,7 @@ function LeftPanel() {
       <div className="relative z-10">
         <h2 className="text-4xl font-bold leading-tight mb-3" style={{ color: '#fff', fontFamily: 'Syne, sans-serif' }}>
           Tu educación,<br />
-          <span style={{ color: '#A8EDEA' }}>a tu ritmo</span>
+          <span style={{ color: '#C9A84C' }}>a tu ritmo</span>
         </h2>
         <p className="text-base mb-8" style={{ color: 'rgba(255,255,255,0.75)', lineHeight: 1.6 }}>
           Obtén tu certificado con validez oficial SEP desde la comodidad de tu hogar.
@@ -100,7 +100,7 @@ function LeftPanel() {
         <div className="flex flex-col gap-3">
           {BENEFITS.map(b => (
             <div key={b} className="flex items-center gap-3">
-              <CheckCircle2 className="shrink-0 w-5 h-5" style={{ color: '#A8EDEA' }} />
+              <CheckCircle2 className="shrink-0 w-5 h-5" style={{ color: '#C9A84C' }} />
               <span className="text-sm" style={{ color: 'rgba(255,255,255,0.9)' }}>{b}</span>
             </div>
           ))}
@@ -119,7 +119,7 @@ function LeftPanel() {
             INCORPORADO A
           </p>
           <p className="text-sm font-bold" style={{ color: '#fff' }}>
-            Sistema Educativo Nacional · CCT 09GBD0002D
+            Sistema Educativo Nacional
           </p>
         </div>
       </div>
@@ -246,9 +246,9 @@ export default function LoginPage() {
                 </label>
                 <Link href="/forgot-password"
                   className="text-xs font-medium transition-colors"
-                  style={{ color: '#3AAFA9' }}
-                  onMouseEnter={e => { e.currentTarget.style.color = '#2B7A77' }}
-                  onMouseLeave={e => { e.currentTarget.style.color = '#3AAFA9' }}
+                  style={{ color: '#C9A84C' }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#1B2F6E' }}
+                  onMouseLeave={e => { e.currentTarget.style.color = '#C9A84C' }}
                 >
                   ¿Olvidaste tu contraseña?
                 </Link>
@@ -289,13 +289,13 @@ export default function LoginPage() {
                 type="submit" disabled={loading}
                 className="w-full flex items-center justify-center gap-2 font-semibold text-white transition-all disabled:opacity-60 disabled:cursor-not-allowed"
                 style={{
-                  background: loading ? '#3AAFA9' : '#3AAFA9',
+                  background: loading ? '#1B2F6E' : '#1B2F6E',
                   borderRadius: 12, height: 48, fontSize: 15,
-                  boxShadow: '0 4px 16px rgba(58,175,169,0.35)',
+                  boxShadow: '0 4px 16px rgba(27,47,110,0.35)',
                   border: 'none', cursor: loading ? 'not-allowed' : 'pointer',
                 }}
-                onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#2B7A77' }}
-                onMouseLeave={e => { if (!loading) e.currentTarget.style.background = '#3AAFA9' }}
+                onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#2E4BA3' }}
+                onMouseLeave={e => { if (!loading) e.currentTarget.style.background = '#1B2F6E' }}
               >
                 {loading
                   ? <><Loader2 className="w-4 h-4 animate-spin" />Iniciando sesión...</>
@@ -340,9 +340,9 @@ export default function LoginPage() {
             ¿No tienes cuenta?{' '}
             <Link href="/register"
               className="font-semibold transition-colors"
-              style={{ color: '#3AAFA9' }}
-              onMouseEnter={e => { e.currentTarget.style.color = '#1B3A57' }}
-              onMouseLeave={e => { e.currentTarget.style.color = '#3AAFA9' }}
+              style={{ color: '#C9A84C' }}
+              onMouseEnter={e => { e.currentTarget.style.color = '#1B2F6E' }}
+              onMouseLeave={e => { e.currentTarget.style.color = '#C9A84C' }}
             >
               Regístrate gratis
             </Link>

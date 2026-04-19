@@ -13,14 +13,14 @@ const WA_URL = `https://wa.me/${CONFIG.whatsapp}`
 const BENEFITS = [
   'Certificado oficial con validez SEP',
   'Estudia desde casa, a tu ritmo',
-  'Convenio IMSS y Ferrocarrileros',
+  'Incorporado a Sistema Educativo Nacional',
   'Secundaria y Preparatoria',
 ]
 
 // ─── Input helpers ─────────────────────────────────────────────────────────────
 function onFocus(e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) {
-  e.currentTarget.style.borderColor = '#3AAFA9'
-  e.currentTarget.style.boxShadow   = '0 0 0 3px rgba(58,175,169,0.12)'
+  e.currentTarget.style.borderColor = '#1B2F6E'
+  e.currentTarget.style.boxShadow   = '0 0 0 3px rgba(27,47,110,0.12)'
 }
 function onBlur(e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) {
   e.currentTarget.style.borderColor = '#E2E8F0'
@@ -54,7 +54,7 @@ function SectionHeader({ step, label }: { step: number; label: string }) {
   return (
     <div className="flex items-center gap-3 mb-4">
       <div className="flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold"
-        style={{ background: '#3AAFA9', color: '#fff', flexShrink: 0 }}>
+        style={{ background: '#1B2F6E', color: '#fff', flexShrink: 0 }}>
         {step}
       </div>
       <h3 className="text-sm font-bold uppercase tracking-wide" style={{ color: '#1B3A57', letterSpacing: '0.07em' }}>
@@ -92,16 +92,16 @@ function ProgressBar({ current }: { current: 1 | 2 | 3 }) {
               <div
                 className="flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold transition-all"
                 style={{
-                  background: done ? '#3AAFA9' : active ? '#3AAFA9' : '#EEF2F7',
+                  background: done ? '#1B2F6E' : active ? '#1B2F6E' : '#EEF2F7',
                   color:      done || active ? '#fff' : '#B0C4D4',
-                  boxShadow:  active ? '0 0 0 4px rgba(58,175,169,0.18)' : 'none',
+                  boxShadow:  active ? '0 0 0 4px rgba(27,47,110,0.18)' : 'none',
                 }}
               >
                 {done ? <CheckCircle2 className="w-4 h-4" /> : s.n}
               </div>
               <span
                 className="mt-1.5 text-xs font-medium text-center leading-tight hidden sm:block"
-                style={{ color: active ? '#1B3A57' : done ? '#3AAFA9' : '#B0C4D4', maxWidth: 72 }}
+                style={{ color: active ? '#1B2F6E' : done ? '#1B2F6E' : '#B0C4D4', maxWidth: 72 }}
               >
                 {s.label}
               </span>
@@ -109,7 +109,7 @@ function ProgressBar({ current }: { current: 1 | 2 | 3 }) {
             {i < steps.length - 1 && (
               <div
                 className="flex-1 h-0.5 mx-2 mb-4"
-                style={{ background: s.n < current ? '#3AAFA9' : '#EEF2F7', transition: 'background .3s' }}
+                style={{ background: s.n < current ? '#1B2F6E' : '#EEF2F7', transition: 'background .3s' }}
               />
             )}
           </div>
@@ -127,7 +127,7 @@ function LeftPanel() {
       style={{
         width: '38%',
         minHeight: '100vh',
-        background: 'linear-gradient(160deg, #1B3A57 0%, #2B6B6B 55%, #3AAFA9 100%)',
+        background: 'linear-gradient(160deg, #0d1b4b 0%, #1B2F6E 55%, #2E4BA3 100%)',
         position: 'relative',
         overflow: 'hidden',
         flexShrink: 0,
@@ -153,7 +153,7 @@ function LeftPanel() {
       <div className="relative z-10">
         <h2 className="text-3xl font-bold leading-tight mb-3" style={{ color: '#fff', fontFamily: 'Syne, sans-serif' }}>
           Comienza hoy<br />
-          <span style={{ color: '#A8EDEA' }}>tu certificado oficial</span>
+          <span style={{ color: '#C9A84C' }}>tu certificado oficial</span>
         </h2>
         <p className="text-sm mb-8" style={{ color: 'rgba(255,255,255,0.75)', lineHeight: 1.7 }}>
           Únete a miles de alumnos que ya obtuvieron su certificado con validez SEP.
@@ -162,7 +162,7 @@ function LeftPanel() {
         <div className="flex flex-col gap-3">
           {BENEFITS.map(b => (
             <div key={b} className="flex items-center gap-3">
-              <CheckCircle2 className="shrink-0 w-5 h-5" style={{ color: '#A8EDEA' }} />
+              <CheckCircle2 className="shrink-0 w-5 h-5" style={{ color: '#C9A84C' }} />
               <span className="text-sm" style={{ color: 'rgba(255,255,255,0.9)' }}>{b}</span>
             </div>
           ))}
@@ -172,7 +172,7 @@ function LeftPanel() {
       <div className="relative z-10">
         <div style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 12, padding: '12px 16px' }}>
           <p className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.6)', marginBottom: 2 }}>INCORPORADO A</p>
-          <p className="text-sm font-bold" style={{ color: '#fff' }}>Sistema Educativo Nacional · CCT 09GBD0002D</p>
+          <p className="text-sm font-bold" style={{ color: '#fff' }}>Sistema Educativo Nacional</p>
         </div>
       </div>
     </div>
@@ -194,8 +194,6 @@ export default function RegisterPage() {
   const [showConfirm,     setShowConfirm]     = useState(false)
   const [nivel,           setNivel]           = useState('')
   const [modalidad,       setModalidad]       = useState('')
-  const [sindicalizado,   setSindicalizado]   = useState(false)
-  const [sindicato,       setSindicato]       = useState('')
   const [error,           setError]           = useState<string | null>(null)
   const [loading,         setLoading]         = useState(false)
 
@@ -212,7 +210,6 @@ export default function RegisterPage() {
     if (password !== confirmPassword) { setError('Las contraseñas no coinciden.'); return }
     if (!nivel) { setError('Selecciona tu nivel educativo.'); return }
     if (!modalidad) { setError('Selecciona la modalidad.'); return }
-    if (sindicalizado && !sindicato) { setError('Selecciona tu sindicato.'); return }
 
     setLoading(true)
     try {
@@ -248,8 +245,8 @@ export default function RegisterPage() {
           telefono:         telefono.trim(),
           nivel,
           modalidad,
-          es_sindicalizado: sindicalizado,
-          sindicato:        sindicalizado ? sindicato : null,
+          es_sindicalizado: false,
+          sindicato:        null,
         }),
       })
       const data = await res.json()
@@ -426,50 +423,6 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* Sindicalizado */}
-              <div
-                className="flex items-start gap-3 rounded-xl p-3.5 cursor-pointer"
-                style={{ background: 'rgba(58,175,169,0.05)', border: '1.5px solid rgba(58,175,169,0.18)' }}
-                onClick={() => { setSindicalizado(v => !v); if (sindicalizado) setSindicato('') }}
-              >
-                <div className="mt-0.5 flex items-center justify-center w-4 h-4 rounded shrink-0"
-                  style={{
-                    background: sindicalizado ? '#3AAFA9' : '#fff',
-                    border: `2px solid ${sindicalizado ? '#3AAFA9' : '#C8D8E4'}`,
-                    transition: 'all .15s',
-                  }}>
-                  {sindicalizado && (
-                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
-                      <path d="M1 4l3 3 5-6" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  )}
-                </div>
-                <div className="flex-1" onClick={e => e.stopPropagation()}>
-                  <label
-                    className="text-sm font-semibold cursor-pointer select-none"
-                    style={{ color: '#1B3A57' }}
-                    onClick={() => { setSindicalizado(v => !v); if (sindicalizado) setSindicato('') }}
-                  >
-                    Soy trabajador sindicalizado 🤝
-                  </label>
-                  <p className="text-xs mt-0.5" style={{ color: '#6B8FA8' }}>
-                    IMSS o Ferrocarrileros — aplica precio preferencial
-                  </p>
-                </div>
-              </div>
-
-              {sindicalizado && (
-                <div className="mt-3">
-                  <Label text="¿Cuál sindicato?" required />
-                  <select value={sindicato} onChange={e => setSindicato(e.target.value)} required
-                    style={selectStyle} onFocus={onFocus} onBlur={onBlur}>
-                    <option value="">Selecciona tu sindicato…</option>
-                    <option value="IMSS">IMSS</option>
-                    <option value="Ferrocarrileros">Ferrocarrileros</option>
-                    <option value="Otro">Otro</option>
-                  </select>
-                </div>
-              )}
             </div>
 
             {/* Error */}
@@ -486,12 +439,12 @@ export default function RegisterPage() {
               type="submit" disabled={loading}
               className="w-full flex items-center justify-center gap-2 font-bold text-white transition-all disabled:opacity-60 disabled:cursor-not-allowed"
               style={{
-                background: '#3AAFA9', borderRadius: 12, height: 52, fontSize: 15,
-                boxShadow: '0 4px 18px rgba(58,175,169,0.38)',
+                background: '#1B2F6E', borderRadius: 12, height: 52, fontSize: 15,
+                boxShadow: '0 4px 18px rgba(27,47,110,0.38)',
                 border: 'none', cursor: loading ? 'not-allowed' : 'pointer',
               }}
-              onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#2B7A77' }}
-              onMouseLeave={e => { if (!loading) e.currentTarget.style.background = '#3AAFA9' }}
+              onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#2E4BA3' }}
+              onMouseLeave={e => { if (!loading) e.currentTarget.style.background = '#1B2F6E' }}
             >
               {loading
                 ? <><Loader2 className="w-5 h-5 animate-spin" />Creando cuenta...</>
@@ -507,9 +460,9 @@ export default function RegisterPage() {
             {/* Login link */}
             <p className="text-center text-sm" style={{ color: '#7A92A9' }}>
               ¿Ya tienes cuenta?{' '}
-              <Link href="/login" className="font-semibold transition-colors" style={{ color: '#3AAFA9' }}
-                onMouseEnter={e => { e.currentTarget.style.color = '#1B3A57' }}
-                onMouseLeave={e => { e.currentTarget.style.color = '#3AAFA9' }}>
+              <Link href="/login" className="font-semibold transition-colors" style={{ color: '#C9A84C' }}
+                onMouseEnter={e => { e.currentTarget.style.color = '#1B2F6E' }}
+                onMouseLeave={e => { e.currentTarget.style.color = '#C9A84C' }}>
                 Inicia sesión
               </Link>
             </p>
