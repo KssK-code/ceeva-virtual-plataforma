@@ -55,8 +55,8 @@ export default function LandingPage() {
             <div style={{ fontSize: 10, color: '#C9A84C', fontWeight: 600, letterSpacing: '0.05em' }}>INSTITUTO</div>
           </div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <a href={WA_URL} target="_blank" rel="noopener noreferrer" style={{
+        <div className="flex items-center gap-2 sm:gap-3" style={{ display: 'flex', alignItems: 'center' }}>
+          <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="hidden sm:flex" style={{
             display: 'flex', alignItems: 'center', gap: 8,
             background: '#25D366', color: '#fff',
             padding: '8px 16px', borderRadius: 10, fontWeight: 600, fontSize: 14,
@@ -101,7 +101,10 @@ export default function LandingPage() {
             Sin ir a la escuela. Sin perder tu trabajo.<br />
             Con <strong style={{ color: '#E8C97A' }}>certificado oficial reconocido por la SEP.</strong>
           </p>
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 56 }}>
+          <div
+            className="flex flex-col sm:flex-row items-center justify-center"
+            style={{ gap: 16, marginBottom: 56 }}
+          >
             <Link href="/register" style={{
               background: '#C9A84C', color: '#1B2F6E',
               padding: '14px 32px', borderRadius: 12, fontWeight: 800, fontSize: 16,
