@@ -7,17 +7,26 @@ export async function GET() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
 
-    // ── Alumno: nivel + meses desbloqueados ──────────────────────────────────
+    // ── Alumno: nivel + meses desbloqueados + duración (modalidad) ────────────
     const { data: alumno } = await supabase
       .from('alumnos')
-      .select('nivel, meses_desbloqueados')
+      .select('nivel, meses_desbloqueados, modalidad, duracion_meses')
       .eq('id', user.id)
       .single()
 
     if (!alumno) return NextResponse.json({ error: 'Alumno no encontrado' }, { status: 404 })
 
-    const nivel              = (alumno as { nivel: string; meses_desbloqueados: number }).nivel
-    const mesesDesbloqueados = (alumno as { nivel: string; meses_desbloqueados: number }).meses_desbloqueados ?? 0
+    const row = alumno as {
+      nivel: string
+      meses_desbloqueados: number
+      modalidad?: string | null
+      duracion_meses?: number | null
+    }
+    const nivel              = row.nivel
+    const mesesDesbloqueados = row.meses_desbloqueados ?? 0
+    const duracionMeses      = row.duracion_meses ?? (row.modalidad === '3_meses' ? 3 : 6)
+    const materiasPorMes     = duracionMeses === 3 ? 4 : 2
+    const limiteMaterias     = Math.max(0, mesesDesbloqueados * materiasPorMes)
 
     // ── Materias del nivel del alumno con meses y semanas ───────────────────
     const { data: materias, error } = await supabase
@@ -54,11 +63,14 @@ export async function GET() {
       activa: boolean; meses_contenido: MesRow[]
     }
 
-    const result = ((materias ?? []) as unknown as MateriaRow[]).map(mat => {
+    const sorted = ([...((materias ?? []) as unknown as MateriaRow[])] as MateriaRow[]).sort(
+      (a, b) => (a.orden ?? 0) - (b.orden ?? 0)
+    )
+
+    const result = sorted.map((mat, idx) => {
       const meses        = mat.meses_contenido ?? []
       const totalSemanas = meses.reduce((acc, mes) => acc + (mes.semanas?.length ?? 0), 0)
-      // Materia disponible si el alumno tiene al menos 1 mes desbloqueado
-      const disponible   = mesesDesbloqueados > 0
+      const disponible   = mesesDesbloqueados > 0 && idx < limiteMaterias
 
       return {
         id:             mat.id,

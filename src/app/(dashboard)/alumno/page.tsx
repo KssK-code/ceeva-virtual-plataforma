@@ -399,16 +399,22 @@ export default function AlumnoDashboard() {
             <SectionTitle>Meses del programa</SectionTitle>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3">
               {mesesDisplay.map(mes => {
-                const completado = mes.desbloqueado && mes.numero < mesActivo
-                const activo     = mes.desbloqueado && mes.numero === mesActivo
+                const numMes     = mes.numero ?? (mes as { numero_mes?: number }).numero_mes ?? 0
+                const materiasArr = Array.isArray(mes.materias)
+                  ? mes.materias
+                  : mes.materias
+                    ? [mes.materias as unknown as MateriaResumen]
+                    : []
+                const completado = mes.desbloqueado && numMes < mesActivo
+                const activo     = mes.desbloqueado && numMes === mesActivo
                 const bloqueado  = !mes.desbloqueado
-                const nMat       = mes.materias?.length ?? 0
+                const nMat       = materiasArr.length
                 const subMaterias = nMat === 1 ? '1 materia' : `${nMat} materias`
 
                 return (
                   <div
                     key={mes.id}
-                    onClick={() => mes.desbloqueado && router.push(`/alumno/mes/${mes.numero}`)}
+                    onClick={() => mes.desbloqueado && router.push(`/alumno/mes/${numMes}`)}
                     className="rounded-2xl p-4 transition-all duration-200 flex flex-col gap-1.5 min-h-[118px]"
                     style={{
                       background:  bloqueado  ? '#F8FAFB'
@@ -431,7 +437,7 @@ export default function AlumnoDashboard() {
                     <div className="flex items-start justify-between gap-2">
                       <span className="text-3xl font-bold leading-none tabular-nums"
                         style={{ color: bloqueado ? '#C8D8E8' : completado ? '#16A34A' : '#3AAFA9' }}>
-                        {mes.numero < 10 ? `0${mes.numero}` : mes.numero}
+                        {numMes < 10 ? `0${numMes}` : numMes}
                       </span>
                       <div className="flex-shrink-0">
                         {bloqueado  && <span className="text-lg">🔒</span>}

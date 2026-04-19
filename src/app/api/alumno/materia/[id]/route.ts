@@ -18,13 +18,21 @@ export async function GET(
     // ── 1. Alumno: nivel + meses desbloqueados ────────────────────────────────
     const { data: alumnoData } = await admin
       .from('alumnos')
-      .select('nivel, meses_desbloqueados')
+      .select('nivel, meses_desbloqueados, modalidad, duracion_meses')
       .eq('id', user.id)
       .single()
 
     if (!alumnoData) return Response.json({ error: 'Alumno no encontrado' }, { status: 404 })
 
-    const alumno = alumnoData as { nivel: string; meses_desbloqueados: number }
+    const alumno = alumnoData as {
+      nivel: string
+      meses_desbloqueados: number
+      modalidad?: string | null
+      duracion_meses?: number | null
+    }
+    const duracionMeses  = alumno.duracion_meses ?? (alumno.modalidad === '3_meses' ? 3 : 6)
+    const materiasPorMes = duracionMeses === 3 ? 4 : 2
+    const limiteMaterias = Math.max(0, alumno.meses_desbloqueados * materiasPorMes)
 
     // ── 2. Materia ────────────────────────────────────────────────────────────
     const { data: materiaData } = await admin
@@ -41,14 +49,28 @@ export async function GET(
     }
 
     // ── 3. Control de acceso ──────────────────────────────────────────────────
-    // Materias demo: siempre accesibles
-    // Materias del nivel del alumno: accesibles si meses_desbloqueados > 0
+    // Demo: siempre. Mismo nivel: según meses desbloqueados × materias por mes (3m→4, 6m→2).
     if (materia.nivel === 'demo') {
-      // siempre permitir acceso — no retornar
-    } else if (alumno.meses_desbloqueados === 0) {
-      return Response.json({ error: 'Aún no tienes meses desbloqueados. Contacta a tu administrador.' }, { status: 403 })
+      // permitir
     } else if (materia.nivel !== alumno.nivel) {
       return Response.json({ error: 'Esta materia no corresponde a tu nivel' }, { status: 403 })
+    } else if (alumno.meses_desbloqueados <= 0) {
+      return Response.json({ error: 'Aún no tienes meses desbloqueados. Contacta a tu administrador.' }, { status: 403 })
+    } else {
+      const { data: planMaterias } = await admin
+        .from('materias')
+        .select('id, orden')
+        .eq('nivel', alumno.nivel)
+        .eq('activa', true)
+        .order('orden')
+
+      const ordenadas = ((planMaterias ?? []) as { id: string; orden: number | null }[])
+        .slice()
+        .sort((a, b) => (a.orden ?? 9999) - (b.orden ?? 9999))
+      const idx = ordenadas.findIndex(m => m.id === params.id)
+      if (idx === -1 || idx >= limiteMaterias) {
+        return Response.json({ error: 'Esta materia aún no está disponible en tu progreso mensual.' }, { status: 403 })
+      }
     }
 
     // ── 4. Meses del contenido → Semanas ──────────────────────────────────────
