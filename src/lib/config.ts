@@ -1,76 +1,78 @@
-/**
- * Configuración central del cliente LMS.
- * Al clonar desde el template, editar solo este archivo (ver SETUP.md).
- */
+// src/lib/config.ts — CEEVA
 export const CONFIG = {
-  nombre: 'IVS Virtual',
-  nombreCompleto: 'IVS Instituto Virtual Superior',
-  whatsapp: '523328381405',
-  whatsappDisplay: '33 2838 1405',
-  logo: '/logo.png',
-  dominio: 'ivsvirtual.com',
+  nombre: 'CEEVA',
+  nombreCompleto: 'Centro de Estudios en Educación Virtual y Académica',
+  logo: '/logo-ceeva.png',
+  logoOscuro: '/logo-ceeva-dark.png',
+
+  whatsapp: '3318806419',
+  whatsappUrl: 'https://wa.me/523318806419',
+  email: 'ceevavirtual@gmail.com',
+
+  dominio: 'ceevavirtual.online',
+  urlBase: 'https://ceevavirtual.online',
+
   colores: {
-    primary: '#1B3A57',
-    secondary: '#3AAFA9',
-    accent: '#4BBFBF',
+    primario: '#1B2F6E',
+    secundario: '#2E4BA3',
+    acento: '#C9A84C',
+    acentoClaro: '#E8C97A',
+    texto: '#1A1A2E',
+    fondo: '#F8F9FF',
   },
+
   niveles: ['secundaria', 'preparatoria'] as const,
-  /** Correo de contacto (footer, perfil, etc.) */
-  email: 'ivsvirtualadmin@gmail.com',
-  slogan: 'Tu educación, a tu ritmo',
-  sep: true,
+
   precios: {
     inscripcion: 399,
-    preparatoria_6meses_normal: 1200,
-    preparatoria_6meses_sindicalizado: 850,
-    preparatoria_3meses_normal: 2400,
-    preparatoria_3meses_sindicalizado: 1700,
-    secundaria_6meses_normal: 1200,
-    secundaria_6meses_sindicalizado: 850,
-    secundaria_3meses_normal: 2400,
-    secundaria_3meses_sindicalizado: 1700,
-    certificacion_preparatoria: 5590,
-    certificacion_secundaria: 4750,
+    preparatoria: {
+      meses6: { porMes: 1000, total: 6000, label: 'Preparatoria 6 meses' },
+      meses3: { porMes: 2000, total: 6000, label: 'Preparatoria 3 meses Express' },
+      certificacion: 4750,
+    },
+    secundaria: {
+      meses6: { porMes: 1000, total: 6000, label: 'Secundaria 6 meses' },
+      meses3: { porMes: 2000, total: 6000, label: 'Secundaria 3 meses Express' },
+      certificacion: 4250,
+    },
   },
+
+  documentosRequeridos: {
+    secundaria: [
+      'Certificado de Primaria',
+      'CURP',
+      'Acta de Nacimiento',
+      'Identificación Oficial',
+      'Foto de Perfil (fondo blanco)',
+    ],
+    preparatoria: [
+      'Certificado de Secundaria',
+      'CURP',
+      'Acta de Nacimiento',
+      'Identificación Oficial',
+      'Foto de Perfil (fondo blanco)',
+    ],
+  },
+
   landing: {
-    hero_badges: [
-      '✅ Incorporado a la SEP',
-      '🎓 +15 años de experiencia',
-      '🤝 Convenio IMSS y Ferrocarrileros',
+    tagline: 'Estudia a tu ritmo, certifícate con la SEP',
+    descripcion: 'Somos un centro educativo incorporado a la SEP. Ofrecemos Secundaria y Preparatoria en línea para jóvenes y adultos que desean superarse desde la comodidad de su hogar.',
+    heroBadges: [
+      { icono: '🏛️', texto: 'Incorporado a la SEP' },
+      { icono: '💻', texto: '100% en línea' },
+      { icono: '📜', texto: 'Certificación oficial' },
     ],
-    hero_titulo: 'Estudia Secundaria o Preparatoria desde casa',
-    hero_subtitulo: 'Sin ir a la escuela. Certificado oficial reconocido por la SEP.',
-    convenios: [
-      { emoji: '🏥', nombre: 'Sindicato IMSS', desc: 'Trabajadores del Instituto Mexicano del Seguro Social' },
-      { emoji: '🚂', nombre: 'Sindicato Ferrocarrileros', desc: 'Sindicato de Trabajadores Ferrocarrileros de la República Mexicana' },
-    ],
-    respaldo_titulo: 'Centro Oficial de Asesoría y Gestoría',
-    respaldo_badges: [
-      '📋 Registro No. 884 — DGB',
-      '🏛️ Oficio DGB/EMS/027/2025',
-      '📍 Guadalajara, Jalisco',
-      '✅ Acuerdo 445 — SEP',
-    ],
-    cct: '09GBD0002D',
-    años_experiencia: '+15',
-    certificacion_secundaria: 4750,
-    certificacion_preparatoria: 5590,
+    convenios: [],
+    respaldoBadges: [],
+  },
+
+  cct: '',
+
+  redes: {
+    facebook: '',
+    instagram: '',
   },
 } as const
 
-/** Compatibilidad con layout, footer y panel admin */
-export const ESCUELA_CONFIG = {
-  nombre: CONFIG.nombre,
-  slug: 'ivs-virtual',
-  logoUrl: CONFIG.logo,
-  colorPrimario: CONFIG.colores.secondary,
-  colorSecundario: CONFIG.colores.primary,
-  contactoEmail: CONFIG.email,
-  /** Número internacional sin + para wa.me */
-  contactoTelefono: CONFIG.whatsapp,
-  /** Texto legible en UI */
-  whatsappDisplay: CONFIG.whatsappDisplay,
-};
-
-/** @deprecated usar CONFIG */
-export const config = CONFIG
+export type Nivel = typeof CONFIG.niveles[number]
+export type PreciosNivel = typeof CONFIG.precios.preparatoria
