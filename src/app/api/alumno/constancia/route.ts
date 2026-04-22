@@ -1,6 +1,18 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { CONFIG } from '@/lib/config'
+
+function storagePathFromUrlArchivo(url: string | null | undefined): string | null {
+  if (!url || typeof url !== 'string') return null
+  const marker = '/object/public/documentos/'
+  const i = url.indexOf(marker)
+  if (i === -1) {
+    if (!url.includes('://') && url.includes('/')) return url.split('?')[0] ?? null
+    return null
+  }
+  return url.slice(i + marker.length).split('?')[0] || null
+}
 
 export async function GET() {
   try {
@@ -78,11 +90,34 @@ export async function GET() {
       ? Math.round((mesesDesbloqueados / duracionMeses) * 100)
       : 0
 
+    let avatar_url: string | null = usuario?.foto_url ?? null
+    let foto_url: string | null = usuario?.foto_url ?? null
+
+    const { data: fotoDoc } = await supabase
+      .from('documentos_alumno')
+      .select('url_archivo')
+      .eq('alumno_id', user.id)
+      .eq('tipo_documento', 'foto_perfil_doc')
+      .maybeSingle()
+
+    const row = fotoDoc as { url_archivo: string | null } | null
+    const storagePath = row?.url_archivo ? storagePathFromUrlArchivo(row.url_archivo) : null
+    if (storagePath) {
+      const admin = createAdminClient()
+      const { data: signedData } = await admin.storage
+        .from('documentos')
+        .createSignedUrl(storagePath, 86400)
+      if (signedData?.signedUrl) {
+        avatar_url = signedData.signedUrl
+        foto_url = signedData.signedUrl
+      }
+    }
+
     return NextResponse.json({
       nombre_completo,
       nombre:              usuario?.nombre   ?? '',
       apellidos:           usuario?.apellidos ?? '',
-      foto_url:            usuario?.foto_url  ?? null,
+      foto_url,
       matricula:           alumno.matricula   ?? `${CONFIG.nombre}-0000`,
       nivel:               alumno.nivel       ?? null,
       modalidad:           alumno.modalidad   ?? '6_meses',
@@ -91,7 +126,7 @@ export async function GET() {
       plan_nombre:         duracionMeses === 3 ? '3 Meses' : '6 Meses',
       porcentaje_avance,
       fecha_inscripcion:   alumno.created_at,
-      avatar_url:          usuario?.foto_url ?? null,
+      avatar_url,
       materias_cursadas,
     })
   } catch (err) {

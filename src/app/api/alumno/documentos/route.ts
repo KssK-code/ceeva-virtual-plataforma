@@ -102,3 +102,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 })
   }
 }
+
+export const config = {
+  api: {
+    bodyParser: false,
+    responseLimit: '10mb',
+  },
+}
