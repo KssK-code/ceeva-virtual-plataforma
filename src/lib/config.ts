@@ -4,8 +4,8 @@ export const CONFIG = {
   logo: '/logo-ceeva.png',
   logoOscuro: '/logo-cliente-dark.png',
 
-  whatsapp: '0000000000',
-  whatsappUrl: 'https://wa.me/520000000000',
+  whatsapp: '3318806419',
+  whatsappUrl: 'https://wa.me/523318806419',
   email: 'correo@cliente.com',
 
   dominio: 'cliente.online',
