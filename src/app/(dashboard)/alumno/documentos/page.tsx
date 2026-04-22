@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Loader2, Upload, CheckCircle2, XCircle, Clock } from 'lucide-react'
 import { useToast, ToastContainer } from '@/components/ui/toast'
 import { createClient } from '@/lib/supabase/client'
+import { mapDocumentoAlumnoRow } from '@/lib/admin/documentos-admin'
 
 type DocTipo =
   | 'acta_nacimiento'
@@ -100,6 +101,19 @@ const ESTADO_LABEL: Record<DocEstado, string> = {
 
 const CARD = { background: '#181C26', border: '1px solid #2A2F3E' }
 
+function toDocumento(row: unknown): Documento {
+  const m = mapDocumentoAlumnoRow(row as Record<string, unknown>)
+  return {
+    id: m.id,
+    tipo: m.tipo as DocTipo,
+    nombre_archivo: m.nombre_archivo,
+    url: m.url ?? '',
+    estado: m.estado,
+    comentario_admin: m.comentario_admin,
+    subido_en: m.subido_en,
+  }
+}
+
 export default function DocumentosPage() {
   const { toasts, showToast, removeToast } = useToast()
 
@@ -113,7 +127,9 @@ export default function DocumentosPage() {
     fetch('/api/alumno/documentos')
       .then(r => r.json())
       .then(data => {
-        setDocumentos(Array.isArray(data.documentos) ? data.documentos : [])
+        setDocumentos(
+          Array.isArray(data.documentos) ? data.documentos.map(toDocumento) : []
+        )
         setPlanNombre(data.plan_nombre ?? '')
       })
       .finally(() => setLoading(false))
@@ -157,7 +173,9 @@ export default function DocumentosPage() {
       }
       showToast('Documento subido correctamente', 'success')
       const fresh = await fetch('/api/alumno/documentos').then(r => r.json())
-      setDocumentos(Array.isArray(fresh.documentos) ? fresh.documentos : [])
+      setDocumentos(
+        Array.isArray(fresh.documentos) ? fresh.documentos.map(toDocumento) : []
+      )
     } catch (e) {
       showToast(e instanceof Error ? e.message : 'Error al subir documento', 'error')
     } finally {
