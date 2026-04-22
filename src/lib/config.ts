@@ -1,6 +1,6 @@
 export const CONFIG = {
-  nombre: 'NOMBRE_CLIENTE',
-  nombreCompleto: 'NOMBRE COMPLETO DEL CLIENTE',
+  nombre: 'CEEVA',
+  nombreCompleto: 'Centro de Estudios en Educación Virtual y Académica',
   logo: '/logo-ceeva.png',
   logoOscuro: '/logo-cliente-dark.png',
 
