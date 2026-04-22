@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Loader2, Upload, CheckCircle2, XCircle, Clock } from 'lucide-react'
 import { useToast, ToastContainer } from '@/components/ui/toast'
+import { createClient } from '@/lib/supabase/client'
 
 type DocTipo =
   | 'acta_nacimiento'
@@ -118,20 +119,47 @@ export default function DocumentosPage() {
       .finally(() => setLoading(false))
   }, [])
 
-  async function handleUpload(tipo: DocTipo, file: File) {
+  async function handleUpload(tipo: DocTipo, archivo: File) {
     setUploading(tipo)
     try {
-      const form = new FormData()
-      form.append('archivo', file)
-      form.append('tipo', tipo)
-      const res = await fetch('/api/alumno/documentos', { method: 'POST', body: form })
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
+        showToast('No hay sesión', 'error')
+        return
+      }
+      const ext = archivo.name.split('.').pop()?.toLowerCase() ?? 'pdf'
+      const storagePath = `${user.id}/${tipo}.${ext}`
+
+      const { error: uploadError } = await supabase.storage
+        .from('documentos')
+        .upload(storagePath, archivo, { upsert: true })
+
+      if (uploadError) throw uploadError
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('documentos')
+        .getPublicUrl(storagePath)
+
+      const res = await fetch('/api/alumno/documentos/metadata', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tipo_documento: tipo,
+          nombre_archivo: archivo.name,
+          url_archivo: publicUrl,
+        }),
+      })
       const data = await res.json()
-      if (!res.ok) { showToast(data.error ?? 'Error al subir documento', 'error'); return }
+      if (!res.ok) {
+        showToast(data.error ?? 'Error al guardar metadatos', 'error')
+        return
+      }
       showToast('Documento subido correctamente', 'success')
       const fresh = await fetch('/api/alumno/documentos').then(r => r.json())
       setDocumentos(Array.isArray(fresh.documentos) ? fresh.documentos : [])
-    } catch {
-      showToast('Error al subir documento', 'error')
+    } catch (e) {
+      showToast(e instanceof Error ? e.message : 'Error al subir documento', 'error')
     } finally {
       setUploading(null)
       const input = fileInputRefs.current[tipo]
