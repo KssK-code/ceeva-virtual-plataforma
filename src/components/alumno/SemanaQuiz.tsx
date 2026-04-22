@@ -82,7 +82,7 @@ export default function SemanaQuiz({ semanaId, lang }: SemanaQuizProps) {
         <p className="font-semibold mb-1" style={{ color: '#94A3B8' }}>
           {loc('Quiz de refuerzo', 'Practice quiz')}
         </p>
-        <p style={{ color: '#64748B' }}>
+        <p style={{ color: '#94A3B8' }}>
           {loc(
             'Aún no hay preguntas para esta semana. Tu avance no se ve afectado.',
             'No practice questions for this week yet. Your progress is not affected.',

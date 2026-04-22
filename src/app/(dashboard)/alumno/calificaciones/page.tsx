@@ -204,7 +204,7 @@ export default function CalificacionesPage() {
                           </div>
 
                           <div className="flex-1 min-w-0">
-                            <p className="font-mono text-xs mb-0.5" style={{ color: '#64748B' }}>{m.codigo}</p>
+                            <p className="font-mono text-xs mb-0.5" style={{ color: '#94A3B8' }}>{m.codigo}</p>
                             <p className="text-sm font-medium leading-snug" style={{ color: '#F1F5F9' }}>
                               {m.nombre_materia}
                             </p>

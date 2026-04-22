@@ -51,7 +51,7 @@ export default function VideoEmbed({ url, titulo, duracion }: VideoEmbedProps) {
         {(titulo || duracion) && (
           <div className="px-4 py-3">
             {titulo && <p className="text-sm font-medium" style={{ color: '#E2E8F0' }}>{titulo}</p>}
-            {duracion && <p className="text-xs mt-0.5" style={{ color: '#64748B' }}>{duracion}</p>}
+            {duracion && <p className="text-xs mt-0.5" style={{ color: '#94A3B8' }}>{duracion}</p>}
           </div>
         )}
       </div>
@@ -84,7 +84,7 @@ export default function VideoEmbed({ url, titulo, duracion }: VideoEmbedProps) {
         {(titulo || duracion) && (
           <div className="px-4 py-3">
             {titulo && <p className="text-sm font-medium" style={{ color: '#E2E8F0' }}>{titulo}</p>}
-            {duracion && <p className="text-xs mt-0.5" style={{ color: '#64748B' }}>{duracion}</p>}
+            {duracion && <p className="text-xs mt-0.5" style={{ color: '#94A3B8' }}>{duracion}</p>}
           </div>
         )}
       </div>
@@ -104,9 +104,9 @@ export default function VideoEmbed({ url, titulo, duracion }: VideoEmbedProps) {
     >
       <div className="min-w-0 flex-1">
         <p className="text-sm font-medium truncate" style={{ color: '#E2E8F0' }}>{titulo}</p>
-        <p className="text-xs mt-0.5">Video externo</p>
+        <p className="text-xs mt-0.5" style={{ color: '#CBD5E1' }}>Video externo</p>
       </div>
-      {duracion && <span className="text-xs shrink-0">{duracion}</span>}
+      {duracion && <span className="text-xs shrink-0" style={{ color: '#94A3B8' }}>{duracion}</span>}
       <ExternalLink className="w-4 h-4 shrink-0" />
     </a>
   )

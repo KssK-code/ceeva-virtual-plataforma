@@ -231,7 +231,7 @@ export default function DocumentosPage() {
                       {ESTADO_LABEL[doc.estado]}
                     </div>
                   ) : (
-                    <p className="text-xs mt-1" style={{ color: '#475569' }}>Sin documento</p>
+                    <p className="text-xs mt-1" style={{ color: '#94A3B8' }}>Sin documento</p>
                   )}
                 </div>
               </div>
@@ -247,7 +247,7 @@ export default function DocumentosPage() {
               )}
 
               <div className="flex items-center justify-between gap-3 mt-auto">
-                <p className="text-xs" style={{ color: '#475569' }}>JPG, PNG, PDF · máx. 5 MB</p>
+                <p className="text-xs" style={{ color: '#94A3B8' }}>JPG, PNG, PDF · máx. 5 MB</p>
                 <input
                   ref={el => { fileInputRefs.current[tipo] = el }}
                   type="file"

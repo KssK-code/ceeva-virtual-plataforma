@@ -357,7 +357,7 @@ export default function EvaluacionPage() {
                 className="w-8 h-8 rounded-full text-xs font-bold flex-shrink-0 transition-all"
                 style={{
                   background: esActual ? '#5B6CFF' : contestada ? 'rgba(16,185,129,0.2)' : 'rgba(255,255,255,0.06)',
-                  color: esActual ? '#fff' : contestada ? '#10B981' : '#475569',
+                  color: esActual ? '#fff' : contestada ? '#10B981' : '#94A3B8',
                   border: esActual ? '2px solid #5B6CFF' : contestada ? '1px solid rgba(16,185,129,0.4)' : '1px solid #2A2F3E',
                 }}
               >

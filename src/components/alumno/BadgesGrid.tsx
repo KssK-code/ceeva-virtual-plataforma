@@ -205,7 +205,7 @@ export default function BadgesGrid({ logros, lang }: BadgesGridProps) {
               <p
                 className={[
                   'text-xs leading-tight',
-                  obtenido ? 'font-bold text-gray-900' : 'font-medium text-gray-400',
+                  obtenido ? 'font-bold text-gray-900' : 'font-medium text-slate-200',
                 ].join(' ')}
               >
                 {nombre}

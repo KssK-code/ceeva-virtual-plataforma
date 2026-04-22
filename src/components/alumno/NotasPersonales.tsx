@@ -99,7 +99,7 @@ export default function NotasPersonales({ semanaId, lang }: NotasPersonalesProps
             <span style={{ color: '#10B981' }}>✓ {loc('Guardado', 'Saved')}</span>
           )}
         </span>
-        <span style={{ color: '#475569' }}>
+        <span style={{ color: '#94A3B8' }}>
           {palabras} {loc('palabras', 'words')}
         </span>
       </div>

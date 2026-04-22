@@ -126,7 +126,7 @@ export default function PerfilPage() {
           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'rgba(99,102,241,0.15)' }}>
             <Camera className="w-4 h-4" style={{ color: '#818CF8' }} />
           </div>
-          <h3 className="text-sm font-semibold text-gray-900">Foto de perfil</h3>
+          <h3 className="text-sm font-semibold" style={{ color: '#F1F5F9' }}>Foto de perfil</h3>
         </div>
         <div className="p-5 flex items-center gap-5">
           <div className="relative flex-shrink-0">
@@ -173,7 +173,7 @@ export default function PerfilPage() {
               <Camera className="w-4 h-4" />
               {avatarLoading ? 'Subiendo...' : 'Cambiar foto'}
             </button>
-            <p className="text-xs" style={{ color: '#475569' }}>JPG, PNG o WebP · máx. 2 MB</p>
+            <p className="text-xs" style={{ color: '#94A3B8' }}>JPG, PNG o WebP · máx. 2 MB</p>
           </div>
         </div>
       </div>
@@ -184,7 +184,7 @@ export default function PerfilPage() {
           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'rgba(91,108,255,0.15)' }}>
             <User className="w-4 h-4" style={{ color: '#7B8AFF' }} />
           </div>
-          <h3 className="text-sm font-semibold text-gray-900">Información Personal</h3>
+          <h3 className="text-sm font-semibold" style={{ color: '#F1F5F9' }}>Información Personal</h3>
         </div>
         <div className="p-5 space-y-4">
           {perfil ? (
@@ -197,7 +197,7 @@ export default function PerfilPage() {
                 { label: 'Duración del plan',  value: `${perfil.duracion_meses} meses` },
               ].map(({ label, value, mono }) => (
                 <div key={label}>
-                  <p className="text-xs font-medium mb-1" style={{ color: '#64748B' }}>{label}</p>
+                  <p className="text-xs font-medium mb-1" style={{ color: '#94A3B8' }}>{label}</p>
                   <p
                     className={`text-sm px-3 py-2.5 rounded-lg ${mono ? 'font-mono' : ''}`}
                     style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid #2A2F3E', color: '#F1F5F9' }}
@@ -219,7 +219,7 @@ export default function PerfilPage() {
           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'rgba(245,158,11,0.15)' }}>
             <Lock className="w-4 h-4" style={{ color: '#F59E0B' }} />
           </div>
-          <h3 className="text-sm font-semibold text-gray-900">Cambiar Contraseña</h3>
+          <h3 className="text-sm font-semibold" style={{ color: '#F1F5F9' }}>Cambiar Contraseña</h3>
         </div>
         <div className="p-5">
           <form onSubmit={handleCambiarPassword} className="space-y-4">
@@ -252,7 +252,7 @@ export default function PerfilPage() {
                     type="button"
                     onClick={toggle}
                     className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5"
-                    style={{ color: '#64748B' }}
+                    style={{ color: '#94A3B8' }}
                   >
                     {show ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -290,20 +290,20 @@ export default function PerfilPage() {
           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'rgba(16,185,129,0.15)' }}>
             <GraduationCap className="w-4 h-4" style={{ color: '#10B981' }} />
           </div>
-          <h3 className="text-sm font-semibold text-gray-900">Información de la Escuela</h3>
+          <h3 className="text-sm font-semibold" style={{ color: '#F1F5F9' }}>Información de la Escuela</h3>
         </div>
         <div className="p-5 space-y-3">
           <div className="flex items-center gap-3">
             <GraduationCap className="w-4 h-4 flex-shrink-0" style={{ color: '#94A3B8' }} />
             <div>
-              <p className="text-xs" style={{ color: '#64748B' }}>Institución</p>
+              <p className="text-xs" style={{ color: '#94A3B8' }}>Institución</p>
               <p className="text-sm font-medium" style={{ color: '#F1F5F9' }}>{ESCUELA_CONFIG.nombre}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <Mail className="w-4 h-4 flex-shrink-0" style={{ color: '#94A3B8' }} />
             <div>
-              <p className="text-xs" style={{ color: '#64748B' }}>Contacto</p>
+              <p className="text-xs" style={{ color: '#94A3B8' }}>Contacto</p>
               <a
                 href={`mailto:${ESCUELA_CONFIG.contactoEmail}`}
                 className="text-sm transition-colors"
@@ -319,7 +319,7 @@ export default function PerfilPage() {
             <div className="flex items-center gap-3">
               <Phone className="w-4 h-4 flex-shrink-0" style={{ color: '#94A3B8' }} />
               <div>
-                <p className="text-xs" style={{ color: '#64748B' }}>Teléfono / WhatsApp</p>
+                <p className="text-xs" style={{ color: '#94A3B8' }}>Teléfono / WhatsApp</p>
                 <a
                   href={`https://wa.me/${ESCUELA_CONFIG.contactoTelefono}`}
                   className="text-sm transition-colors"
