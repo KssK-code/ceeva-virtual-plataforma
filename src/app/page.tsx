@@ -34,9 +34,8 @@ const GOLD_LIGHT = '#E8C97A'
 const WHITE = '#FFFFFF'
 const DARK_BG = '#0D1520'
 
-const HERO_TITULO =
-  'Estudia desde casa, en tu celular o computadora, con validez oficial SEP'
-const HERO_HIGHLIGHT = 'validez oficial SEP'
+const HERO_TITULO = 'Estudia desde casa, en tu celular o computadora'
+const HERO_HIGHLIGHT = 'con validez oficial SEP'
 
 const fmt = (n: number) =>
   n.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 })
@@ -226,33 +225,45 @@ function useRipple() {
 
 /* ─── Sub-components ─────────────────────────────────────────────────────── */
 function HeroTitle({ titulo, highlight }: { titulo: string; highlight: string }) {
-  const lower = titulo.toLowerCase()
-  const hiLower = highlight.toLowerCase()
-  const idx = lower.indexOf(hiLower)
-  const start = idx >= 0 ? idx : -1
-  const end = start >= 0 ? start + highlight.length : -1
-
   return (
     <h1
-      className={`${fraunces.className} text-center font-semibold leading-[1.1] tracking-tight`}
-      style={{ fontSize: 'clamp(2rem, 5.5vw, 4.25rem)', color: WHITE }}
+      className={`${fraunces.className} text-center font-semibold tracking-tight`}
+      style={{ lineHeight: 1.12 }}
     >
-      {titulo.split('').map((ch, i) => {
-        const isHi = start >= 0 && i >= start && i < end
-        return (
+      {/* Main line — white, animates first */}
+      <span
+        className="block"
+        style={{ fontSize: 'clamp(1.85rem, 4.8vw, 3.75rem)', color: WHITE }}
+      >
+        {titulo.split('').map((ch, i) => (
           <span
             key={i}
             className="ceeva-char"
-            style={{
-              animationDelay: `${i * 0.032}s`,
-              color: isHi ? GOLD : WHITE,
-              textShadow: isHi ? `0 0 24px ${GOLD}88` : undefined,
-            }}
+            style={{ animationDelay: `${i * 0.028}s`, color: WHITE }}
           >
             {ch === ' ' ? '\u00A0' : ch}
           </span>
-        )
-      })}
+        ))}
+      </span>
+      {/* Highlight line — gold, smaller, animates after main */}
+      <span
+        className="mt-3 block"
+        style={{
+          fontSize: 'clamp(1.4rem, 3.2vw, 2.5rem)',
+          color: GOLD,
+          textShadow: `0 0 32px ${GOLD}55`,
+        }}
+      >
+        {highlight.split('').map((ch, i) => (
+          <span
+            key={i}
+            className="ceeva-char"
+            style={{ animationDelay: `${(titulo.length + i) * 0.028}s`, color: GOLD }}
+          >
+            {ch === ' ' ? '\u00A0' : ch}
+          </span>
+        ))}
+      </span>
     </h1>
   )
 }

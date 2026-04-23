@@ -8,8 +8,8 @@ export const CONFIG = {
   whatsappUrl: 'https://wa.me/523318806419',
   email: 'correo@cliente.com',
 
-  dominio: 'cliente.online',
-  urlBase: 'https://cliente.online',
+  dominio: 'ceevavirtual.online',
+  urlBase: 'https://ceevavirtual.online',
 
   colores: {
     primario: '#1B2F6E',
@@ -54,8 +54,8 @@ export const CONFIG = {
   },
 
   landing: {
-    hero_titulo: 'Estudia desde casa, certifícate con la SEP',
-    hero_highlight: 'certifícate',
+    hero_titulo: 'Estudia desde casa, en tu celular o computadora',
+    hero_highlight: 'con validez oficial SEP',
     hero_subtitulo: 'Sin ir a la escuela. Sin perder tu trabajo. Con certificación oficial.',
     hero_badges: [
       '🏛️ Incorporado a la SEP',
