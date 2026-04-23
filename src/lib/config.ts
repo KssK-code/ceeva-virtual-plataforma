@@ -54,9 +54,9 @@ export const CONFIG = {
   },
 
   landing: {
-    hero_titulo: 'Estudia desde casa, en tu celular o computadora',
-    hero_highlight: 'con validez oficial SEP',
-    hero_subtitulo: 'Sin ir a la escuela. Sin perder tu trabajo. Con certificación oficial.',
+    hero_titulo: 'Estudia desde casa',
+    hero_highlight: 'certifícate con la SEP',
+    hero_subtitulo: 'En tu celular o computadora. Sin ir a la escuela. Sin perder tu trabajo. Con certificado oficial reconocido por la SEP.',
     hero_badges: [
       '🏛️ Incorporado a la SEP',
       '💻 100% en línea',

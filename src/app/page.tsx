@@ -34,8 +34,8 @@ const GOLD_LIGHT = '#E8C97A'
 const WHITE = '#FFFFFF'
 const DARK_BG = '#0D1520'
 
-const HERO_TITULO = 'Estudia desde casa, en tu celular o computadora'
-const HERO_HIGHLIGHT = 'con validez oficial SEP'
+const HERO_TITULO = 'Estudia desde casa'
+const HERO_HIGHLIGHT = 'certifícate con la SEP'
 
 const fmt = (n: number) =>
   n.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 })
@@ -228,12 +228,12 @@ function HeroTitle({ titulo, highlight }: { titulo: string; highlight: string })
   return (
     <h1
       className={`${fraunces.className} text-center font-semibold tracking-tight`}
-      style={{ lineHeight: 1.15, wordBreak: 'keep-all', overflowWrap: 'normal' }}
+      style={{ maxWidth: '700px', margin: '0 auto', lineHeight: 1.1, wordBreak: 'keep-all', overflowWrap: 'normal' }}
     >
       {/* Main line — white */}
       <span
         className="block"
-        style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', color: WHITE }}
+        style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)', color: WHITE, textAlign: 'center' }}
       >
         {titulo.split('').map((ch, i) => (
           <span
@@ -245,13 +245,14 @@ function HeroTitle({ titulo, highlight }: { titulo: string; highlight: string })
           </span>
         ))}
       </span>
-      {/* Highlight line — gold, own block */}
+      {/* Highlight — gold, own block */}
       <span
         className="block"
         style={{
-          fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
+          fontSize: 'clamp(2.2rem, 4.5vw, 4rem)',
           marginTop: '8px',
           color: GOLD,
+          textAlign: 'center',
           textShadow: `0 0 28px ${GOLD}55`,
         }}
       >
