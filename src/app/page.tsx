@@ -228,12 +228,12 @@ function HeroTitle({ titulo, highlight }: { titulo: string; highlight: string })
   return (
     <h1
       className={`${fraunces.className} text-center font-semibold tracking-tight`}
-      style={{ lineHeight: 1.12 }}
+      style={{ lineHeight: 1.15, wordBreak: 'keep-all', overflowWrap: 'normal' }}
     >
-      {/* Main line — white, animates first */}
+      {/* Main line — white */}
       <span
         className="block"
-        style={{ fontSize: 'clamp(1.85rem, 4.8vw, 3.75rem)', color: WHITE }}
+        style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', color: WHITE }}
       >
         {titulo.split('').map((ch, i) => (
           <span
@@ -245,13 +245,14 @@ function HeroTitle({ titulo, highlight }: { titulo: string; highlight: string })
           </span>
         ))}
       </span>
-      {/* Highlight line — gold, smaller, animates after main */}
+      {/* Highlight line — gold, own block */}
       <span
-        className="mt-3 block"
+        className="block"
         style={{
-          fontSize: 'clamp(1.4rem, 3.2vw, 2.5rem)',
+          fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
+          marginTop: '8px',
           color: GOLD,
-          textShadow: `0 0 32px ${GOLD}55`,
+          textShadow: `0 0 28px ${GOLD}55`,
         }}
       >
         {highlight.split('').map((ch, i) => (
@@ -731,7 +732,7 @@ export default function LandingPage() {
         ))}
 
         {/* Hero content */}
-        <div className="relative z-[2] mx-auto flex w-full max-w-4xl flex-col items-center text-center">
+        <div className="relative z-[2] mx-auto flex w-full max-w-[750px] flex-col items-center text-center">
 
           {/* SEP badge */}
           <div
