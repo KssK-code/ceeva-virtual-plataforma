@@ -10,6 +10,7 @@ const fraunces = Fraunces({
   subsets: ['latin'],
   variable: '--font-fraunces',
   display: 'swap',
+  weight: ['400', '500', '600', '700', '900'],
 })
 
 const dmSans = DM_Sans({
@@ -23,6 +24,11 @@ const NAVY = '#1A2B6B'
 const GOLD = '#C9A84C'
 const WHITE = '#FFFFFF'
 const DARK_BG = '#0D1520'
+
+/** Copy específico del hero (solicitud de producto); el resto de la landing sigue en CONFIG. */
+const HERO_MAIN_TITULO =
+  'Estudia desde casa, en tu celular o computadora, con validez oficial SEP'
+const HERO_MAIN_HIGHLIGHT = 'validez oficial SEP'
 
 const fmt = (n: number) =>
   n.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 })
@@ -227,9 +233,7 @@ export default function LandingPage() {
           titulo: cap('secundaria'),
           cert: CONFIG.precios.certificacion_secundaria,
           p6n: CONFIG.precios.secundaria_6meses_normal,
-          p6s: CONFIG.precios.secundaria_6meses_sindicalizado,
           p3n: CONFIG.precios.secundaria_3meses_normal,
-          p3s: CONFIG.precios.secundaria_3meses_sindicalizado,
           docs: CONFIG.documentosRequeridos.secundaria,
         },
         {
@@ -237,9 +241,7 @@ export default function LandingPage() {
           titulo: cap('preparatoria'),
           cert: CONFIG.precios.certificacion_preparatoria,
           p6n: CONFIG.precios.preparatoria_6meses_normal,
-          p6s: CONFIG.precios.preparatoria_6meses_sindicalizado,
           p3n: CONFIG.precios.preparatoria_3meses_normal,
-          p3s: CONFIG.precios.preparatoria_3meses_sindicalizado,
           docs: CONFIG.documentosRequeridos.preparatoria,
         },
       ] as const,
@@ -370,9 +372,13 @@ export default function LandingPage() {
             className="h-11 w-11 rounded-lg object-contain"
             priority
           />
-          <div className="leading-tight">
-            <div className="text-base font-medium text-white">{CONFIG.nombre}</div>
-            <div className="text-[10px] font-medium tracking-[0.12em]" style={{ color: GOLD }}>
+          <div className="min-w-0 leading-tight">
+            <div className="truncate text-base font-medium text-white">{CONFIG.nombre}</div>
+            <div
+              className="truncate text-[10px] font-medium tracking-[0.08em] sm:text-[11px] sm:tracking-[0.12em]"
+              style={{ color: GOLD }}
+              title={CONFIG.dominio}
+            >
               {CONFIG.dominio}
             </div>
           </div>
@@ -406,6 +412,19 @@ export default function LandingPage() {
           animation: 'ceevaHeroGradient 22s ease-in-out infinite',
         }}
       >
+        <div
+          className={`pointer-events-none absolute left-1/2 top-[46%] z-0 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap ${fraunces.className}`}
+          style={{
+            fontSize: 'clamp(120px, 20vw, 200px)',
+            fontWeight: 900,
+            color: 'rgba(201,168,76,0.04)',
+            lineHeight: 0.85,
+          }}
+          aria-hidden
+        >
+          {CONFIG.nombre}
+        </div>
+
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.55]"
           style={{
@@ -487,7 +506,7 @@ export default function LandingPage() {
           </span>
 
           <div data-ceeva-reveal className="ceeva-reveal w-full">
-            <HeroTitleLetters titulo={CONFIG.landing.hero_titulo} highlight={CONFIG.landing.hero_highlight} />
+            <HeroTitleLetters titulo={HERO_MAIN_TITULO} highlight={HERO_MAIN_HIGHLIGHT} />
           </div>
 
           <p
@@ -550,72 +569,65 @@ export default function LandingPage() {
         </div>
       </header>
 
-      <section data-ceeva-reveal className="ceeva-reveal px-4 py-20 sm:px-8" style={{ background: WHITE }}>
+      <section data-ceeva-reveal className="ceeva-reveal px-3 py-14 sm:px-8 sm:py-20" style={{ background: WHITE }}>
         <h2
-          className={`${fraunces.className} mx-auto mb-14 max-w-3xl text-center text-[clamp(1.75rem,4vw,2.75rem)] font-semibold`}
+          className={`${fraunces.className} mx-auto mb-10 max-w-3xl px-1 text-center text-[clamp(1.5rem,5vw,2.75rem)] font-semibold sm:mb-14`}
           style={{ color: NAVY }}
         >
           {CONFIG.niveles.map((n) => cap(n)).join(' · ')}
         </h2>
 
-        <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2" style={{ perspective: '1400px' }}>
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-5 sm:gap-8 md:grid-cols-2" style={{ perspective: '1400px' }}>
           {nivelesCards.map((card) => (
             <article
               key={card.key}
-              className="ceeva-card-3d flex flex-col rounded-2xl border border-black/5 bg-white p-8 shadow-[0_8px_30px_rgba(26,43,107,0.08)]"
+              className="ceeva-card-3d flex flex-col rounded-2xl border border-black/5 bg-white p-5 shadow-[0_8px_30px_rgba(26,43,107,0.08)] sm:p-8"
               style={{ borderTop: `3px solid ${GOLD}` }}
               onMouseMove={cardMove}
               onMouseLeave={cardLeave}
             >
-              <h3 className={`${fraunces.className} text-3xl font-semibold`} style={{ color: NAVY }}>
+              <h3
+                className={`${fraunces.className} text-2xl font-semibold sm:text-3xl`}
+                style={{ color: NAVY }}
+              >
                 {card.titulo}
               </h3>
 
-              <ul className={`${dmSans.className} mt-6 space-y-2 text-sm font-light text-neutral-700`}>
+              <ul className={`${dmSans.className} mt-4 space-y-1.5 text-xs font-light text-neutral-700 sm:mt-6 sm:space-y-2 sm:text-sm`}>
                 {card.docs.map((d) => (
                   <li key={d} className="flex gap-2">
-                    <span style={{ color: GOLD }} aria-hidden>
+                    <span className="shrink-0" style={{ color: GOLD }} aria-hidden>
                       ·
                     </span>
-                    <span>{d}</span>
+                    <span className="min-w-0 break-words">{d}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className={`${dmSans.className} mt-8 space-y-3 border-t border-black/10 pt-6 text-sm font-light`}>
-                <div className="flex justify-between gap-4">
-                  <span className="text-neutral-600">Inscripción</span>
-                  <span className="font-medium tabular-nums" style={{ color: NAVY }}>
+              <div
+                className={`${dmSans.className} mt-6 space-y-2.5 border-t border-black/10 pt-5 text-xs font-light sm:mt-8 sm:space-y-3 sm:pt-6 sm:text-sm`}
+              >
+                <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                  <span className="shrink-0 text-neutral-600">Inscripción</span>
+                  <span className="font-medium tabular-nums sm:text-right" style={{ color: NAVY }}>
                     {fmt(CONFIG.precios.inscripcion)}
                   </span>
                 </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-neutral-600">6 meses (normal)</span>
-                  <span className="font-medium tabular-nums" style={{ color: NAVY }}>
+                <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                  <span className="shrink-0 text-neutral-600">6 meses</span>
+                  <span className="font-medium tabular-nums sm:text-right" style={{ color: NAVY }}>
                     {fmt(card.p6n)} <span className="font-normal text-neutral-500">/ mes</span>
                   </span>
                 </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-neutral-600">6 meses (sindicalizado)</span>
-                  <span className="font-medium tabular-nums" style={{ color: NAVY }}>
-                    {fmt(card.p6s)} <span className="font-normal text-neutral-500">/ mes</span>
-                  </span>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-neutral-600">3 meses (normal)</span>
-                  <span className="font-medium tabular-nums" style={{ color: NAVY }}>
+                <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                  <span className="shrink-0 text-neutral-600">3 meses</span>
+                  <span className="font-medium tabular-nums sm:text-right" style={{ color: NAVY }}>
                     {fmt(card.p3n)} <span className="font-normal text-neutral-500">/ mes</span>
                   </span>
                 </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-neutral-600">3 meses (sindicalizado)</span>
-                  <span className="font-medium tabular-nums" style={{ color: NAVY }}>
-                    {fmt(card.p3s)} <span className="font-normal text-neutral-500">/ mes</span>
-                  </span>
-                </div>
-                <div className="flex justify-between gap-4 border-t border-black/10 pt-3">
-                  <span className="text-neutral-600">Certificación</span>
-                  <span className="font-medium tabular-nums" style={{ color: GOLD }}>
+                <div className="flex flex-col gap-0.5 border-t border-black/10 pt-2.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4 sm:pt-3">
+                  <span className="shrink-0 text-neutral-600">Certificación</span>
+                  <span className="font-medium tabular-nums sm:text-right" style={{ color: GOLD }}>
                     {fmt(card.cert)}
                   </span>
                 </div>
@@ -623,7 +635,7 @@ export default function LandingPage() {
 
               <Link
                 href="/register"
-                className="ceeva-ripple-wrap mt-8 inline-flex w-full items-center justify-center rounded-xl py-3.5 text-center text-sm font-medium no-underline transition-transform hover:scale-[1.02] sm:text-base"
+                className="ceeva-ripple-wrap mt-6 inline-flex w-full min-h-[44px] items-center justify-center rounded-xl py-3 text-center text-sm font-medium no-underline transition-transform hover:scale-[1.02] sm:mt-8 sm:py-3.5 sm:text-base"
                 style={{ background: GOLD, color: NAVY }}
                 onClick={ripple}
               >
@@ -711,50 +723,31 @@ export default function LandingPage() {
 
       <footer
         data-ceeva-reveal
-        className="ceeva-reveal px-4 py-14 sm:px-8"
+        className="ceeva-reveal px-4 py-12 sm:px-8 sm:py-14"
         style={{ background: DARK_BG, borderTop: `1px solid ${GOLD}33` }}
       >
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 text-center sm:flex-row sm:items-start sm:justify-between sm:text-left">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <div className="flex flex-col items-center gap-3 sm:items-start">
             <Image src={CONFIG.logo} alt={CONFIG.nombre} width={48} height={48} className="rounded-lg object-contain" />
             <div className={`${fraunces.className} text-xl font-semibold text-white`}>{CONFIG.nombre}</div>
-            <p className={`${dmSans.className} max-w-sm text-sm font-light text-white/60`}>{CONFIG.nombreCompleto}</p>
+            <p className={`${dmSans.className} max-w-md text-sm font-light leading-relaxed text-white/60`}>
+              {CONFIG.nombreCompleto}
+            </p>
           </div>
-          <div className={`${dmSans.className} space-y-2 text-sm font-light text-white/55`}>
-            <div>
-              <span className="text-white/40">Dominio</span>
-              <br />
-              <span className="text-white/90">{CONFIG.dominio}</span>
-            </div>
-            <div>
-              <span className="text-white/40">Correo</span>
-              <br />
-              <a href={`mailto:${CONFIG.email}`} className="text-white/90 underline-offset-2 hover:underline">
-                {CONFIG.email}
-              </a>
-            </div>
-            <div>
-              <span className="text-white/40">WhatsApp</span>
-              <br />
-              <a
-                href={CONFIG.whatsappUrl}
-                className="text-white/90 underline-offset-2 hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {CONFIG.whatsapp}
-              </a>
-            </div>
-            {CONFIG.urlBase ? (
-              <div>
-                <span className="text-white/40">Web</span>
-                <br />
-                <span className="text-white/90">{CONFIG.urlBase}</span>
-              </div>
-            ) : null}
-          </div>
+          <nav className={`${dmSans.className} flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm font-medium`}>
+            <Link href="/login" className="text-white/90 no-underline transition-colors hover:text-white" onClick={ripple}>
+              Iniciar sesión
+            </Link>
+            <Link
+              href="/register"
+              className="text-white/90 no-underline transition-colors hover:text-white"
+              onClick={ripple}
+            >
+              Crear cuenta
+            </Link>
+          </nav>
         </div>
-        <p className={`${dmSans.className} mt-12 text-center text-xs font-light text-white/35`}>
+        <p className={`${dmSans.className} mt-10 border-t border-white/10 pt-8 text-center text-xs font-light text-white/35 sm:mt-12`}>
           © {new Date().getFullYear()} {CONFIG.nombre}. {CONFIG.nombreCompleto}
         </p>
       </footer>
