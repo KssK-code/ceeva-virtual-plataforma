@@ -190,6 +190,16 @@ const cssGlobal = `
   .ceeva-scroll-hint {
     animation: ceevaScrollBounce 1.8s ease-in-out infinite;
   }
+  .ceeva-hero-main { font-size: 4rem; }
+  .ceeva-hero-hi   { font-size: 2.8rem; }
+  @media (max-width: 768px) {
+    .ceeva-hero-main { font-size: 2.8rem; }
+    .ceeva-hero-hi   { font-size: 2rem; }
+  }
+  @media (max-width: 640px) {
+    .ceeva-hero-main { font-size: 2.2rem; }
+    .ceeva-hero-hi   { font-size: 1.6rem; }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     .ceeva-reveal {
@@ -228,12 +238,20 @@ function HeroTitle({ titulo, highlight }: { titulo: string; highlight: string })
   return (
     <h1
       className={`${fraunces.className} text-center font-semibold tracking-tight`}
-      style={{ maxWidth: '700px', margin: '0 auto', lineHeight: 1.1, wordBreak: 'keep-all', overflowWrap: 'normal' }}
+      style={{
+        maxWidth: '700px',
+        margin: '0 auto',
+        lineHeight: 1.1,
+        hyphens: 'none',
+        wordBreak: 'keep-all',
+        whiteSpace: 'normal',
+        overflowWrap: 'normal',
+      }}
     >
-      {/* Main line — white */}
+      {/* Main line — white, responsive via CSS class */}
       <span
-        className="block"
-        style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)', color: WHITE, textAlign: 'center' }}
+        className="ceeva-hero-main block"
+        style={{ color: WHITE, textAlign: 'center' }}
       >
         {titulo.split('').map((ch, i) => (
           <span
@@ -245,11 +263,10 @@ function HeroTitle({ titulo, highlight }: { titulo: string; highlight: string })
           </span>
         ))}
       </span>
-      {/* Highlight — gold, own block */}
+      {/* Highlight — gold, responsive via CSS class */}
       <span
-        className="block"
+        className="ceeva-hero-hi block"
         style={{
-          fontSize: 'clamp(2.2rem, 4.5vw, 4rem)',
           marginTop: '8px',
           color: GOLD,
           textAlign: 'center',
