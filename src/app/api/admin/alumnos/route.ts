@@ -223,7 +223,7 @@ export async function POST(request: NextRequest) {
     const matricula = `IVS-${year}-${rand}`
 
     // Insertar en usuarios
-    await admin.from('usuarios').insert({ id: newUserId, nombre, apellidos, email, rol: 'ALUMNO' })
+    await admin.from('usuarios').insert({ id: newUserId, nombre, apellidos, email, rol: 'alumno' })
 
     // Insertar en alumnos (nivel + modalidad obligatorios)
     const { data: alumnoData, error: alumnoError } = await admin
